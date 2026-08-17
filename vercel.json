@@ -1,1 +1,4 @@
-{"cleanUrls":true,"headers":[{"source":"/admin.html","headers":[{"key":"X-Robots-Tag","value":"noindex, nofollow"}]}]}
+{
+  "cleanUrls": true,
+  "outputDirectory": "."
+}
