@@ -1,19 +1,36 @@
-# Flexi-Spec — Full build
+# Flexi-Spec — Dynamic Supabase Edition
 
-Identity: Ogunbiyi Jesutomisin (Flexi-Spec)
-Stack: HTML/CSS/JS + Supabase + Vercel
-No assets/ directory. No api/ directory.
-Admin is a separate `admin.html` page.
+Ogunbiyi Jesutomisin (Flexi-Spec)
 
-## Setup
-1. Create a Supabase project.
-2. Run `schema.sql` in Supabase SQL Editor.
-3. Create ONE Supabase Auth user.
-4. Insert that user's UUID into `admin_profiles` with role `admin`.
-5. Set Vercel environment variables:
-   VITE_SUPABASE_URL
-   VITE_SUPABASE_PUBLISHABLE_KEY
+## Architecture
 
-Do not expose a Supabase service-role key.
+This build contains page shells only. Content is NOT stored as individual
+article/project/contributor HTML files.
 
-Note: browser-only static deployment cannot read Vite env variables without a bundling step. For a plain Vercel static deployment, inject the public Supabase URL/key into `supabase.js` or convert this project to a Vite build. The publishable key is safe to expose; service-role key is not.
+Supabase is the content source for:
+- projects
+- articles
+- feed posts
+- labs
+- achievements
+- contributors
+- pages
+- media
+- SEO metadata
+- messages
+- handles
+- site settings
+
+The public pages dynamically fetch and render content.
+
+## Deploy
+
+This is a static Vercel deployment. No build output directory is required.
+
+1. Run `schema.sql` in Supabase SQL Editor.
+2. Create the single admin Auth user in Supabase.
+3. Configure the Supabase URL and publishable key in `supabase.js`.
+4. Push the root files to GitHub.
+5. Import the repository into Vercel with Framework Preset `Other`.
+
+Never expose a Supabase service-role key in frontend code.
