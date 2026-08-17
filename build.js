@@ -1,0 +1,1 @@
+console.log('Flexi-Spec static build ready for Vercel.');

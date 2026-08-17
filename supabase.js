@@ -1,5 +1,4 @@
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-const url = window.__SUPABASE_URL__ || "";
-const key = window.__SUPABASE_PUBLISHABLE_KEY__ || "";
-export const supabase = url && key ? createClient(url,key) : null;
-export const configured = !!supabase;
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const url=import.meta.env?.VITE_SUPABASE_URL || window.__SUPABASE_URL__ || '';
+const key=import.meta.env?.VITE_SUPABASE_PUBLISHABLE_KEY || window.__SUPABASE_PUBLISHABLE_KEY__ || '';
+export const supabase=createClient(url,key);
