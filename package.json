@@ -1,1 +1,5 @@
-{"name":"flexi-spec","version":"1.0.0","private":true,"type":"module","scripts":{"build":"node build.js"},"dependencies":{"@supabase/supabase-js":"^2.57.4"}}
+{
+  "name": "flexi-spec",
+  "version": "1.0.0",
+  "private": true
+}
