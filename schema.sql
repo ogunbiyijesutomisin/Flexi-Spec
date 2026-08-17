@@ -1,0 +1,23 @@
+create extension if not exists pgcrypto;
+create table if not exists projects(id uuid primary key default gen_random_uuid(),title text not null,slug text unique not null,category text,excerpt text,description text,content_html text,tags text[] default '{}',cover_url text,cover_alt text,live_url text,github_url text,published boolean default false,featured boolean default false,seo_title text,seo_description text,canonical_url text,created_at timestamptz default now(),updated_at timestamptz default now());
+create table if not exists articles(id uuid primary key default gen_random_uuid(),title text not null,slug text unique not null,category text,excerpt text,content_html text,cover_url text,cover_alt text,tags text[] default '{}',author_name text default 'Ogunbiyi Jesutomisin',medium_url text,published boolean default false,published_at timestamptz,updated_at timestamptz default now(),seo_title text,seo_description text,canonical_url text,noindex boolean default false);
+create table if not exists feed_posts(id uuid primary key default gen_random_uuid(),title text,slug text unique not null,content text not null,tags text[] default '{}',published boolean default false,published_at timestamptz default now());
+create table if not exists pages(id uuid primary key default gen_random_uuid(),slug text unique not null,title text not null,content_html text,published boolean default true,seo_title text,seo_description text,canonical_url text,noindex boolean default false);
+create table if not exists contributors(id uuid primary key default gen_random_uuid(),name text not null,slug text unique not null,role text,bio text,image_url text,url text,published boolean default true,seo_title text,seo_description text);
+create table if not exists handles(id uuid primary key default gen_random_uuid(),platform text not null,username text,url text not null,sort_order int default 0,published boolean default true);
+create table if not exists messages(id uuid primary key default gen_random_uuid(),name text not null,email text not null,message text not null,read boolean default false,created_at timestamptz default now());
+alter table projects enable row level security;
+alter table articles enable row level security;
+alter table feed_posts enable row level security;
+alter table pages enable row level security;
+alter table contributors enable row level security;
+alter table handles enable row level security;
+alter table messages enable row level security;
+create policy "public read published projects" on projects for select using(published=true);
+create policy "public read published articles" on articles for select using(published=true and noindex=false);
+create policy "public read published feed" on feed_posts for select using(published=true);
+create policy "public read published pages" on pages for select using(published=true and noindex=false);
+create policy "public read contributors" on contributors for select using(published=true);
+create policy "public read handles" on handles for select using(published=true);
+create policy "public create messages" on messages for insert with check(true);
+-- Add authenticated-admin UPDATE/INSERT/DELETE policies before enabling CMS writes.
